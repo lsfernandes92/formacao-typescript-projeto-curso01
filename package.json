@@ -5,11 +5,17 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc"
+    "server": "lite-server --baseDir=.",
+    "start": "concurrently \"npm run watch\" \"npm run server\"",
+    "compile": "tsc",
+    "watch": "tsc -w"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^8.2.2",
+    "lite-server": "^2.6.1",
     "typescript": "^5.5.2"
-  }
+  },
+  "dependencies": {}
 }
