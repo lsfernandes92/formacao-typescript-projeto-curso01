@@ -1,9 +1,4 @@
-let balance: number = 3000;
-
-const lblBalance = document.querySelector(".saldo-valor .valor") as HTMLElement;
 const formNewTransaction = document.querySelector(".block-nova-transacao form") as HTMLFormElement;
-
-lblBalance.innerHTML = balance.toString();
 
 formNewTransaction.addEventListener("submit" , (event) : void => {
   event.preventDefault();
@@ -17,22 +12,25 @@ formNewTransaction.addEventListener("submit" , (event) : void => {
   const inputValue = document.querySelector("#valor") as HTMLInputElement;
   const inputDate = document.querySelector("#data") as HTMLInputElement;
 
-  const newTransaction = {
-    type: inputTransactionType.value,
+  let transctionType: TransactionType = inputTransactionType.value as TransactionType;
+  let date: Date = new Date(inputDate.value)
+
+  const newTransaction: Transaction = {
+    type: transctionType,
     value: inputValue.valueAsNumber,
-    date: inputDate.value
+    date: date
   }
 
-  if (newTransaction.type === "Depósito") {
+  if (newTransaction.type === TransactionType.DEPOSIT) {
     balance += newTransaction.value;
-  } else if (newTransaction.type === "Transferência" 
-    || newTransaction.type === "Pagamento de Boleto") {
+  } else if (newTransaction.type === TransactionType.TRANSFER ||
+      newTransaction.type === TransactionType.BOLETO_PAYMENT) {
     balance -= newTransaction.value;
   } else {
     alert("Please check your transaction type and try again.");
   }
 
-  lblBalance.textContent = balance.toString();
+  lblBalance.textContent = formatCurrency(balance);
 
   formNewTransaction.reset();
 });
