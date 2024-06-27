@@ -1,4 +1,4 @@
-enum TransactionType {
+export enum TransactionType {
   DEPOSIT = "Depósito",
   TRANSFER = "Transferência",
   BOLETO_PAYMENT = "Pagamento de Boleto",

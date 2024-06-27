@@ -1,3 +1,5 @@
+import { TransactionType } from "../types/transaction-type.js";
+import { getBalance, updateBalance } from "./balance-component.js";
 const formNewTransaction = document.querySelector(".block-nova-transacao form");
 formNewTransaction.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -10,6 +12,7 @@ formNewTransaction.addEventListener("submit", (event) => {
     const inputDate = document.querySelector("#data");
     let transctionType = inputTransactionType.value;
     let date = new Date(inputDate.value);
+    let balance = getBalance();
     const newTransaction = {
         type: transctionType,
         value: inputValue.valueAsNumber,
@@ -25,6 +28,6 @@ formNewTransaction.addEventListener("submit", (event) => {
     else {
         alert("Please check your transaction type and try again.");
     }
-    lblBalance.textContent = formatCurrency(balance);
+    updateBalance(balance);
     formNewTransaction.reset();
 });

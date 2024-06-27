@@ -1,4 +1,4 @@
-var DateType;
+export var DateType;
 (function (DateType) {
     DateType["DEFAULT"] = "DD/MM/YYYY";
     DateType["WEEKDAY_DAY_MONTH_YEAR"] = "WEEKDAY, DD/MM/YYYY";

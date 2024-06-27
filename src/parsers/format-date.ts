@@ -1,14 +1,6 @@
-const formatCurrency = (value: number): string => {
-  return value.toLocaleString(
-    "pt-BR",
-    {
-      style: "currency",
-      currency: "BRL"
-    }
-  );
-}
+import { DateType } from "../types/date-type.js";
 
-const formatDate = (date: Date, format: DateType = DateType.DEFAULT): string => {
+export const formatDate = (date: Date, format: DateType = DateType.DEFAULT): string => {
   switch (format) {
     case DateType.WEEKDAY_DAY_MONTH_YEAR:
       return date.toLocaleDateString(
