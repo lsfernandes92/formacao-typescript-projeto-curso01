@@ -1,33 +1,23 @@
-import { TransactionType } from "../types/transaction-type.js";
-import { getBalance, updateBalance } from "./balance-component.js";
+import { SaldoComponent } from "./balance-component.js";
+import { Account } from "../types/account.js";
 const formNewTransaction = document.querySelector(".block-nova-transacao form");
 formNewTransaction.addEventListener("submit", (event) => {
     event.preventDefault();
+    const inputTransactionType = document.querySelector("#tipoTransacao");
+    const inputValue = document.querySelector("#valor");
+    const inputDate = document.querySelector("#data");
+    const transctionType = inputTransactionType.value;
+    const date = new Date(inputDate.value);
     if (!formNewTransaction.checkValidity()) {
         alert("Please check your new transaction input values and try again.");
         return;
     }
-    const inputTransactionType = document.querySelector("#tipoTransacao");
-    const inputValue = document.querySelector("#valor");
-    const inputDate = document.querySelector("#data");
-    let transctionType = inputTransactionType.value;
-    let date = new Date(inputDate.value);
-    let balance = getBalance();
     const newTransaction = {
         type: transctionType,
         value: inputValue.valueAsNumber,
         date: date
     };
-    if (newTransaction.type === TransactionType.DEPOSIT) {
-        balance += newTransaction.value;
-    }
-    else if (newTransaction.type === TransactionType.TRANSFER ||
-        newTransaction.type === TransactionType.BOLETO_PAYMENT) {
-        balance -= newTransaction.value;
-    }
-    else {
-        alert("Please check your transaction type and try again.");
-    }
-    updateBalance(balance);
+    Account.registerTransaction(newTransaction);
+    SaldoComponent.updateBalance(Account.getBalance());
     formNewTransaction.reset();
 });
